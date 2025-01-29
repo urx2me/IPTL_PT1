@@ -1,0 +1,155 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1d1d1d;
+    color: #f1f1f1;
+}
+
+header {
+    background-color: #e10600;
+    color: white;
+    text-align: center;
+    padding: 1.5em 0;
+    font-size: 2.5em;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+nav {
+    background-color: #202020;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 0.7em 0;
+}
+
+nav a {
+    color: #f1f1f1;
+    text-decoration: none;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+nav a:hover {
+    background-color: #e10600;
+    transform: scale(1.1);
+}
+.main-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5em;
+    max-width: 1100px;
+    margin: 2em auto;
+    padding: 2em;
+    background-color: #2a2a2a;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.featured-news, .profile-section, .feed-section {
+    background-color: #333;
+    padding: 1.5em;
+    border-radius: 10px;
+    border: 2px solid #444;
+}
+
+.featured-news img, .feed-item img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.news-sidebar, .feed-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.news-item, .feed-item {
+    background-color: #444;
+    padding: 1em;
+    border-radius: 10px;
+    display: flex;
+    gap: 1em;
+    align-items: center;
+}
+
+.news-item img, .feed-item img {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+}
+
+.news-item:hover, .feed-item:hover {
+    background-color: #e10600;
+    cursor: pointer;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 2em auto;
+    padding: 2em;
+    background-color: #2a2a2a;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.profile-section, .feed-section {
+    text-align: center;
+}
+
+.feed-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+.feed-item {
+    background-color: #444;
+    padding: 1em;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+.feed-item img {
+    width: 100%;
+    border-radius: 10px;
+    display: block;
+}
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+}
+.like-btn, .comment-btn {
+    background-color: #e10600;
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.comments-section {
+    margin-top: 1em;
+}
+.comments-section input {
+    width: 80%;
+    padding: 0.5em;
+    border-radius: 5px;
+    border: none;
+}
+
+footer {
+    background-color: #202020;
+    color: white;
+    text-align: center;
+    padding: 1.5em 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
