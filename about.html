@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - F1 Social</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1d1d1d;
+            color: #f1f1f1;
+        }
+
+        header {
+            background-color: #e10600;
+            color: white;
+            text-align: center;
+            padding: 1.5em 0;
+            font-size: 2em;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        nav {
+            background-color: #202020;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 0.7em 0;
+        }
+
+        nav a {
+            color: #f1f1f1;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 0.5em 1em;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #e10600;
+            transform: scale(1.1);
+        }
+
+        .container {
+            margin: 2em auto;
+            max-width: 1000px;
+            padding: 2em;
+            background-color: #2a2a2a;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .section {
+            margin-bottom: 2em;
+        }
+
+        .section img {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .teams-container, .drivers-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .team-card, .driver-card {
+            background-color: #333;
+            padding: 1em;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .team-card:hover, .driver-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(255, 0, 0, 0.5);
+        }
+
+        .team-card img, .driver-card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        footer {
+            background-color: #202020;
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            margin-top: 2em;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    F1 Social 
+</header>
+
+<nav>
+    <a href="home.html">Home</a>
+    <a href="profile.html">Profile</a>
+    <a href="feed.html">Feed</a>
+    <a href="about.html">About</a>
+</nav>
+
+<div class="container">
+    <div class="section">
+        <h1 style="color: #e10600; text-align: center;">About F1 Social</h1>
+        <p>F1 Social is the ultimate platform for Formula 1 fans. Connect with fellow enthusiasts, stay updated on the latest news, and share your passion for the fastest motorsport in the world.</p>
+        <img src="cor.png" alt="F1 Social Community">
+    </div>
+    
+    <div class="section">
+        <h2 style="color: #e10600; text-align: center;">F1 Teams 2025</h2>
+        <p style="text-align: center;">Discover everything you need to know about this year's Formula 1 teams - drivers, podium finishes, points earned, and championship titles.</p>
+        <div class="teams-container">
+            <div class="team-card">
+                <h3>Alpine</h3>
+                <p>Pierre Gasly & Jack Doohan</p>
+                <img src="Alpine.png" alt="Alpine F1 Car">
+            </div>
+            <div class="team-card">
+                <h3>Aston Martin</h3>
+                <p>Lance Stroll & Fernando Alonso</p>
+                <img src="Aston Martin.png" alt="Aston Martin F1 Car">
+            </div>
+            <div class="team-card">
+                <h3>Ferrari</h3>
+                <p>Charles Leclerc & Lewis Hamilton</p>
+                <img src="Ferrari.png" alt="Ferrari F1 Car">
+            </div>
+            <div class="team-card">
+                <h3>Haas</h3>
+                <p>Esteban Ocon & Oliver Bearman</p>
+                <img src="Haas.png" alt="Haas F1 Car">
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 style="color: #e10600; text-align: center;">F1 Drivers</h2>
+        <div class="drivers-container">
+            <div class="driver-card">
+                <h3>Max Verstappen</h3>
+                <img src="Max.png" alt="Max Verstappen">
+            </div>
+            <div class="driver-card">
+                <h3>Lewis Hamilton</h3>
+                <img src="Lewis.png" alt="Lewis Hamilton">
+            </div>
+            <div class="driver-card">
+                <h3>Charles Leclerc</h3>
+                <img src="Charles.png" alt="Charles Leclerc">
+            </div>
+            <div class="driver-card">
+                <h3>Fernando Alonso</h3>
+                <img src="Fernando.png" alt="Fernando Alonso">
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    &copy; 2025 F1 Social. All Rights Reserved.
+</footer>
+
+</body>
+</html>
