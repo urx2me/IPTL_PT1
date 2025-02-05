@@ -292,3 +292,33 @@ transform: translateY(-50%);
 height: 80px;
 width: auto; 
 }
+
+.custom-alert {
+    display: none; 
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #1a1a1a;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(255, 0, 0, 0.5);
+    text-align: center;
+    width: 300px;
+}
+
+.custom-alert button {
+    background-color: #c8102e;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-top: 10px;
+    width: 20%;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.custom-alert button:hover {
+    background-color: #a60e2e;
+}
