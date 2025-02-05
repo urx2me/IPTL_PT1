@@ -3,305 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-          font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #121212;
-            color: #f1f1f1;
-        }
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="create.css">
+    <!-- Add Cropper.js for image cropping -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 
-        header {
-            background-color: #e10600;
-            color: white;
-            text-align: center;
-            padding: 1.5em 0;
-            font-size: 2em;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        }
+    
 
-        nav {
-            background-color: #202020;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 0.7em 0;
-        }
-
-        nav a {
-            color: #f1f1f1;
-            text-decoration: none;
-            font-size: 1.2em;
-            font-weight: bold;
-            padding: 0.5em 1em;
-            border-radius: 5px;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        nav a:hover {
-            background-color: #e10600;
-            transform: scale(1.1);
-        }
-
-        .f1-info-section {
-      background-color: #1a1a1a; 
-      border-radius: 20px;
-      margin: 40px auto;
-      padding: 20px;
-      text-align: center;
-      width: 90%;
-      max-width: 600px;
-    }
-
-    .f1-image {
-      width: 100%;
-      height: auto;
-      border-radius: 20px;
-      margin-bottom: 20px;
-    }
-
-    .f1-text h2 {
-      font-size: 2rem;
-      font-family:"Montserrat", sans-serif;
-      margin: 0 0 10px;
-      color: #c8102e; 
-    }
-
-    .f1-text p {
-      font-size: 1rem;
-      font-family: 'Arial', sans-serif; 
-      color: white; 
-      line-height: 1.5;
-      display: flex;
-    justify-content: space-between;
-    width: 100%;
-    }
-
-    .upload-container {
-      background-color: #1a1a1a; 
-      border-radius: 20px;
-      margin: 40px auto;
-      padding: 20px;
-      width: 90%;
-      max-width: 500px;
-      text-align: center;
-      border: 2px dashed #c8102e; 
-      display: none; 
-    }
-
-    .upload-container h2 {
-      font-size: 1.6rem;
-      margin-bottom: 20px;
-      color: #c8102e; 
-    }
-
-    .upload-container input,
-    .upload-container button {
-      width: 90%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border-radius: 12px;
-      border: 1px solid #c8102e; 
-      font-size: 1rem;
-      outline: none;
-      background-color: #333; 
-      color: white; 
-    }
-
-    .upload-container button {
-      background-color: #c8102e; 
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .upload-container button:hover {
-      background-color: #a60e2e; 
-    }
-
-    .toggle-upload-button {
-      background-color: #c8102e; 
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 8px;
-      cursor: pointer;
-      margin: 20px auto;
-      display: block;
-      transition: background-color 0.3s ease;
-    }
-
-    .toggle-upload-button:hover {
-      background-color: #a60e2e; 
-    }
-
-    .stories-container {
-      display: flex;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      padding: 20px;
-      background-color: #1a1a1a; 
-      width: 90%;
-      max-width: 100%;
-      margin: 30px auto;
-      border-radius: 20px;
-    }
-
-    .story {
-      width: 120px;
-      height: 213px;
-      margin-right: 15px;
-      border-radius: 20px;
-      overflow: hidden;
-      position: relative;
-      cursor: pointer;
-      border: 2px solid #c8102e; 
-      background: linear-gradient(135deg, #f9f3ff, #fff3ff);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .story:hover {
-      transform: scale(1.05);
-    }
-
-    .story img,
-    .story video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .reaction-container {
-      display: flex;
-      justify-content: center;
-      margin-top: 10px;
-    }
-
-    .reaction-button {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1.5rem;
-      cursor: pointer;
-      margin: 0 5px;
-      transition: transform 0.3s ease;
-    }
-
-    .reaction-button.clicked {
-      transform: scale(1.5); 
-    }
-
-    .story-viewer {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.9); 
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    }
-
-    .story-viewer.active {
-      display: flex;
-    }
-
-    .story-viewer-title {
-      color: #fff;
-      font-size: 1.5rem;
-      margin-bottom: 20px;
-      text-align: center;
-      padding: 0 20px;
-    }
-
-    .story-viewer-content {
-      width: 80%;
-      max-width: 800px;
-      height: 80%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
-
-    .story-viewer img,
-    .story-viewer video {
-      width: 100%;
-      max-width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 20px;
-    }
-
-    .navigation-button {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: transparent; 
-      border: none;
-      color: white; 
-      font-size: 2rem;
-      cursor: pointer;
-    }
-
-    .navigation-button:hover {
-      color: #f1c40f; 
-    }
-
-    .navigation-button.left {
-      left: 10px;
-    }
-
-    .navigation-button.right {
-      right: 10px;
-    }
-
-    .close-button {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background-color: #c8102e; 
-      color: white;
-      border: none;
-      padding: 10px;
-      cursor: pointer;
-      border-radius: 8px;
-      font-size: 1rem;
-    }
-
-    .close-button:hover {
-      background-color: #a60e2e; 
-    }
-
-    footer {
-            background-color: #202020;
-            color: white;
-            text-align: center;
-            padding: 0.10em 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-        .logo {
-    position: absolute; 
-    left: 20px;
-    top: 7%; 
-    transform: translateY(-50%); 
-    height: 80px;
-    width: auto; 
-        }
-        
-    </style>
 </head>
 <body>
 
 <header>
-  <img src="logo.png" alt="F1 Logo" class="logo"> 
+  <img src="IMAGES/logo.png" alt="F1 Logo" class="logo"> 
 </header>
 
 <nav>
@@ -324,6 +38,26 @@
   <div class="upload-container" id="uploadContainer">
     <h2>Create a Story</h2>
     <input type="file" id="mediaInput" accept="image/*,video/*" multiple>
+    <div id="mediaPreviewContainer">
+      <div id="mediaPreview"></div>
+      <div class="rotate-buttons" id="rotateButtons" style="display: none;">
+        <img src="IMAGES/rotate-left.png" alt="Rotate Left" id="rotateLeft" class="rotate-btn">
+        <img src="IMAGES/rotate-right.png" alt="Rotate Right" id="rotateRight" class="rotate-btn">
+      </div>
+      <div id="videoTrimControls" style="display: none;">
+        <label for="startTrim">Start Time:</label>
+        <input type="range" id="startTrim" min="0" step="0.1" value="0">
+        <span id="startTimeLabel">0.0</span>s
+        <br>
+        <label for="endTrim">End Time:</label>
+        <input type="range" id="endTrim" min="0" step="0.1" value="10">
+        <span id="endTimeLabel">10.0</span>s
+        <br>
+        <button onclick="applyTrim()">Apply Trim</button>
+      </div>
+      
+    </div>
+    
     <input type="text" id="storyTitle" placeholder="Enter story title">
     <input type="file" id="musicInput" accept="audio/*" class="music-input">
     <button onclick="addStories()">Post Stories</button>
@@ -354,6 +88,9 @@
     &copy; 2025 F1 Social. All Rights Reserved.
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.2"></script>
+
+
   <script>
     const storiesContainer = document.getElementById('storiesContainer');
     const storyViewer = document.getElementById('storyViewer');
@@ -365,6 +102,52 @@
     let currentStoryIndex = 0;
     let autoTimer;
     const reactionCounts = {};
+    const mediaInput = document.getElementById('mediaInput');
+const mediaPreviewContainer = document.getElementById('mediaPreviewContainer');
+const mediaPreview = document.getElementById('mediaPreview');
+
+const rotateButtons = document.getElementById("rotateButtons");
+const rotateLeftBtn = document.getElementById("rotateLeft");
+const rotateRightBtn = document.getElementById("rotateRight");
+
+
+let cropper = null;
+
+mediaInput.addEventListener('change', function(event) {
+  const file = event.target.files[0];
+
+  if (!file) return;
+  
+  mediaPreview.innerHTML = ''; // Clear previous preview
+  mediaPreviewContainer.style.display = 'block';
+
+  const fileURL = URL.createObjectURL(file);
+
+  if (file.type.startsWith('image/')) {
+    const img = document.createElement('img');
+    img.id = "cropImage";
+    img.src = fileURL;
+    mediaPreview.appendChild(img);
+
+    // Wait for image to load before applying cropper
+    img.onload = function () {
+      if (cropper) cropper.destroy(); // Reset cropper if already applied
+      cropper = new Cropper(img, {
+        aspectRatio: 1 / 1,
+        viewMode: 1
+      });
+    };
+    rotateButtons.style.display = "flex"; // Show rotate buttons
+  } else if (file.type.startsWith('video/')) {
+    const video = document.createElement('video');
+    video.src = fileURL;
+    video.controls = true;
+    mediaPreview.appendChild(video);
+
+    rotateButtons.style.display = "none"; // Hide rotate buttons
+  }
+});
+
 
     function toggleUploadOptions() {
       if (uploadContainer.style.display === "none" || uploadContainer.style.display === "") {
@@ -375,58 +158,82 @@
     }
 
     function addStories() {
-      const mediaInput = document.getElementById('mediaInput');
-      const storyTitleInput = document.getElementById('storyTitle');
-      const musicInput = document.getElementById('musicInput');
-      const files = Array.from(mediaInput.files);
-      const storyTitle = storyTitleInput.value.trim();
-      const musicFile = musicInput.files[0];
+  const storyTitleInput = document.getElementById('storyTitle');
+  const musicInput = document.getElementById('musicInput');
+  const storyTitle = storyTitleInput.value.trim();
+  const musicFile = musicInput.files[0];
 
-      if (files.length === 0) {
-        alert('Please select at least one image or video.');
-        return;
-      }
+  let mediaFile = trimmedVideoFile || mediaInput.files[0];
 
-      files.forEach((file) => {
-        const storyElement = document.createElement('div');
-        storyElement.classList.add('story');
-        const url = URL.createObjectURL(file);
-        const title = storyTitle || "Untitled Story";
+  // If there's a trimmed video, use it; otherwise, use the original video
+  if (trimmedVideoFile) {
+    mediaFile = trimmedVideoFile;
+  } 
+  
+  else if (cropper) {
+    cropper.getCroppedCanvas().toBlob(blob => {
+      mediaFile = new File([blob], "cropped-image.jpg", { type: "image/jpeg" });
+      processStory(mediaFile, storyTitle, musicFile);
+    });
+  } else {
+    mediaFile = mediaInput.files[0];
+    processStory(mediaFile, storyTitle, musicFile);
+  }
+}
 
-        if (file.type.startsWith('image/')) {
-          const img = document.createElement('img');
-          img.src = url;
-          storyElement.appendChild(img);
-        } else if (file.type.startsWith('video/')) {
-          const video = document.createElement('video');
-          video.src = url;
-          video.controls = false;
-          storyElement.appendChild(video);
-        } else {
-          alert('Unsupported file type.');
-          return;
-        }
+function processStory(mediaFile, storyTitle, musicFile) {
+  if (!mediaFile) {
+    alert("Please select an image or video.");
+    return;
+  }
 
-        storyElement.addEventListener('click', () => {
-          storyQueue = Array.from(storiesContainer.children)
-            .filter(child => child !== storiesContainer.children[0])
-            .map(child => ({
-              src: child.querySelector('img, video').src,
-              type: child.querySelector('img') ? 'image' : 'video',
-              title: title,
-              music: musicFile ? URL.createObjectURL(musicFile) : null
-            }));
+  const storyElement = document.createElement('div');
+  storyElement.classList.add('story');
+  const url = URL.createObjectURL(mediaFile);
 
-          currentStoryIndex = storyQueue.findIndex(item => item.src === url);
-          showStory(currentStoryIndex);
-        });
+  if (mediaFile.type.startsWith('image/')) {
+    const img = document.createElement('img');
+    img.src = url;
+    storyElement.appendChild(img);
+  } else if (mediaFile.type.startsWith('video/')) {
+    const video = document.createElement('video');
+    video.src = url;
+    video.controls = false;
+    storyElement.appendChild(video);
+  }
 
-        storiesContainer.appendChild(storyElement);
-        storyTitleInput.value = '';
-        mediaInput.value = '';
-        musicInput.value = '';
-      });
-    }
+  // ✅ RE-ADDING STORY CLICK FUNCTIONALITY TO OPEN STORIES ✅
+  storyElement.addEventListener('click', () => {
+    storyQueue = Array.from(storiesContainer.children)
+      .filter(child => child !== storiesContainer.children[0]) // Ignore the "Add Story" button
+      .map(child => ({
+        src: child.querySelector('img, video').src,
+        type: child.querySelector('img') ? 'image' : 'video',
+        title: storyTitle || "Untitled Story",
+        music: musicFile ? URL.createObjectURL(musicFile) : null
+      }));
+
+    currentStoryIndex = storyQueue.findIndex(item => item.src === url);
+    showStory(currentStoryIndex);
+  });
+
+  storiesContainer.appendChild(storyElement);
+
+  // Reset form inputs and preview
+  document.getElementById('storyTitle').value = '';
+  mediaInput.value = '';
+  musicInput.value = '';
+  mediaPreview.innerHTML = '';
+  mediaPreviewContainer.style.display = 'none';
+  rotateButtons.style.display = "none"; // Hide rotate buttons
+  
+  if (cropper) {
+    cropper.destroy();
+    cropper = null;
+  }
+}
+
+
 
     function handleReaction(reaction) {
       reactionCounts[reaction] = (reactionCounts[reaction] || 0) + 1; 
@@ -434,37 +241,57 @@
     }
 
     function showStory(index) {
-      if (index < 0 || index >= storyQueue.length) {
-        closeStory();
-        return;
-      }
+  if (index < 0 || index >= storyQueue.length) {
+    closeStory();
+    return;
+  }
 
-      const story = storyQueue[index];
-      storyViewerContent.innerHTML = '';
-      storyViewerTitle.textContent = story.title;
+  const story = storyQueue[index];
+  storyViewerContent.innerHTML = '';
+  storyViewerTitle.textContent = story.title;
 
-      if (story.type === 'image') {
-        const img = document.createElement('img');
-        img.src = story.src;
-        storyViewerContent.appendChild(img);
-      } else if (story.type === 'video') {
-        const video = document.createElement('video');
-        video.src = story.src;
-        video.autoplay = true;
-        video.controls = true;
-        storyViewerContent.appendChild(video);
-      }
+  if (story.type === 'image') {
+    const img = document.createElement('img');
+    img.src = story.src;
+    storyViewerContent.appendChild(img);
+  } else if (story.type === 'video') {
+    const video = document.createElement('video');
+    video.src = story.src;
+    video.autoplay = true;
+    video.controls = true;
+    storyViewerContent.appendChild(video);
+  }
 
-      storyViewer.classList.add('active');
-      reactionContainer.style.display = 'flex'; 
-    }
+  // Handle audio playback
+  if (story.music) {
+    const audio = document.createElement('audio');
+    audio.src = story.music;
+    audio.autoplay = true;
+    audio.loop = true;
+    audio.id = 'storyAudio';
+    storyViewerContent.appendChild(audio);
+  }
 
-    function closeStory() {
-      storyViewer.classList.remove('active');
-      clearTimeout(autoTimer);
-      storyViewerContent.innerHTML = ''; 
-      reactionContainer.style.display = 'none'; 
-    }
+  storyViewer.classList.add('active');
+  reactionContainer.style.display = 'flex';
+
+  resetAutoTimer();
+}
+
+function closeStory() {
+  storyViewer.classList.remove('active');
+  clearTimeout(autoTimer);
+  storyViewerContent.innerHTML = ''; 
+  reactionContainer.style.display = 'none';
+
+  // Stop and remove audio if present
+  const audio = document.getElementById('storyAudio');
+  if (audio) {
+    audio.pause();
+    audio.src = '';
+  }
+}
+
 
     function resetAutoTimer() {
       clearTimeout(autoTimer);
@@ -477,6 +304,129 @@
       currentStoryIndex += direction;
       showStory(currentStoryIndex);
     }
+
+
+    let rotationAngle = 0;
+
+    rotateLeftBtn.addEventListener("click", function () {
+  rotateImage(-90); // Rotate counterclockwise
+});
+
+rotateRightBtn.addEventListener("click", function () {
+  rotateImage(90); // Rotate clockwise
+});
+
+function rotateImage(deg) {
+  if (cropper) {
+    cropper.rotate(deg); // Rotate using CropperJS
+  }
+}
+
+
+const videoTrimControls = document.getElementById("videoTrimControls");
+const startTrim = document.getElementById("startTrim");
+const endTrim = document.getElementById("endTrim");
+const startTimeLabel = document.getElementById("startTimeLabel");
+const endTimeLabel = document.getElementById("endTimeLabel");
+
+let videoElement;
+let trimmedVideoFile = null; 
+
+mediaInput.addEventListener('change', function (event) {
+  const file = event.target.files[0];
+
+  if (!file) return;
+
+  mediaPreview.innerHTML = ''; // Clear previous preview
+  mediaPreviewContainer.style.display = 'block';
+
+  const fileURL = URL.createObjectURL(file);
+
+  if (file.type.startsWith('image/')) {
+    // Handle image cropping (existing logic)
+    const img = document.createElement('img');
+    img.id = "cropImage";
+    img.src = fileURL;
+    mediaPreview.appendChild(img);
+
+    img.onload = function () {
+      if (cropper) cropper.destroy();
+      cropper = new Cropper(img, { aspectRatio: 1 / 1, viewMode: 1 });
+    };
+    rotateButtons.style.display = "flex";
+  } else if (file.type.startsWith('video/')) {
+    // Handle video preview and trimming logic
+    videoElement = document.createElement('video');
+    videoElement.src = fileURL;
+    videoElement.controls = true;
+    mediaPreview.appendChild(videoElement);
+
+    // Show trim controls for the video
+    videoTrimControls.style.display = "block";
+
+    videoElement.onloadedmetadata = function () {
+      // Update the end trim time to video duration
+      endTrim.max = videoElement.duration;
+      endTrim.value = videoElement.duration;
+      updateTrimLabels();
+    };
+  }
+});
+
+function updateTrimLabels() {
+    startTimeLabel.textContent = parseFloat(startTrim.value).toFixed(1);
+    endTimeLabel.textContent = parseFloat(endTrim.value).toFixed(1);
+}
+
+async function applyTrim() {
+    if (!videoElement) {
+        alert("No video selected.");
+        return;
+    }
+
+    const start = parseFloat(startTrim.value);
+    const end = parseFloat(endTrim.value);
+    if (end <= start) {
+        alert("End time must be greater than start time.");
+        return;
+    }
+
+    const { createFFmpeg, fetchFile } = FFmpeg;
+    const ffmpeg = createFFmpeg({ log: true });
+
+    await ffmpeg.load();
+    const file = mediaInput.files[0];
+
+    const fileName = "input.mp4";
+    const outputFileName = "trimmed.mp4";
+
+    ffmpeg.FS("writeFile", fileName, await fetchFile(file));
+
+    await ffmpeg.run(
+        "-i", fileName,
+        "-ss", start.toString(),
+        "-to", end.toString(),
+        "-c", "copy",
+        outputFileName
+    );
+
+    const trimmedData = ffmpeg.FS("readFile", outputFileName);
+    const trimmedBlob = new Blob([trimmedData.buffer], { type: "video/mp4" });
+    trimmedVideoFile = new File([trimmedBlob], "trimmed-video.mp4", { type: "video/mp4" });
+
+    const videoURL = URL.createObjectURL(trimmedVideoFile);
+    mediaPreview.innerHTML = ''; 
+    const trimmedVideoElement = document.createElement("video");
+    trimmedVideoElement.src = videoURL;
+    trimmedVideoElement.controls = true;
+    mediaPreview.appendChild(trimmedVideoElement);
+
+    alert("Trim applied successfully!");
+}
+
+
+
+
   </script>
 </body>
 </html>

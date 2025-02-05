@@ -3,556 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #1d1d1d;
-            color: #f1f1f1;
-        }
-
-        header {
-            background-color: #e10600;
-            color: white;
-            text-align: center;
-            padding: 1.5em 0;
-            font-size: 2em;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        }
-
-        footer {
-            background-color: #202020;
-            color: white;
-            text-align: center;
-            padding: 1em 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-
-        nav {
-            background-color: #202020;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 0.7em 0;
-        }
-
-        nav a {
-            color: #f1f1f1;
-            text-decoration: none;
-            font-size: 1.2em;
-            font-weight: bold;
-            padding: 0.5em 1em;
-            border-radius: 5px;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        nav a:hover {
-            background-color: #e10600;
-            transform: scale(1.1);
-        }
-        .main-container {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 1.5em;
-            max-width: 1100px;
-            margin: 2em auto;
-            padding: 2em;
-            background-color: #2a2a2a;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .featured-news, .profile-section, .feed-section {
-            background-color: #333;
-            padding: 1.5em;
-            border-radius: 10px;
-            border: 2px solid #444;
-        }
-
-        .featured-news img, .feed-item img {
-            width: 100%;
-            border-radius: 10px;
-        }
-
-        .news-sidebar, .feed-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5em;
-        }
-
-        .news-item, .feed-item {
-            background-color: #444;
-            padding: 1em;
-            border-radius: 10px;
-            display: flex;
-            gap: 1em;
-            align-items: center;
-        }
-
-        .news-item img, .feed-item img {
-            width: 150px;
-            height: 120px;
-            border-radius: 5px;
-        }
-
-        .news-item:hover {
-            background-color: #e10600;
-            cursor: pointer;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 2em auto;
-            padding: 2em;
-            background-color: #2a2a2a;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .profile-section {
-    text-align: center;
-    background: linear-gradient(135deg, #e10600, #ff5733);
-    padding: 2.5em;
-    border-radius: 15px;
-    color: white;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-    position: relative;
-    transition: transform 0.3s ease-in-out;
-}
-
-.profile-section:hover {
-    transform: scale(1.02);
-}
-
-.profile-picture {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 4px solid white;
-    object-fit: cover;
-    margin-bottom: 1em;
-}
-
-.profile-info {
-    font-size: 1.2em;
-    font-weight: bold;
-}
-
-.profile-stats {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    font-size: 1.1em;
-    margin-top: 1em;
-}
-
-.stat {
-    background: rgba(255, 255, 255, 0.2);
-    padding: 0.7em 1.2em;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s ease-in-out;
-}
-
-.stat:hover {
-    background: rgba(255, 255, 255, 0.4);
-}
-
-.edit-bio {
-    margin-top: 1em;
-    background: white;
-    color: #e10600;
-    padding: 0.5em 1.2em;
-    border-radius: 5px;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.edit-bio:hover {
-    background: #ddd;
-}
-
-
-        .profile-section, .feed-section {
-            text-align: center;
-        }
-
-        .feed-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5em;
-}
-
-        .feed-section {
-            max-width: 1100px;
-            margin: 2em auto;
-            margin-top: 50px;
-            padding: 2em;
-            background-color: #2a2a2a;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-
-        }
-
-        .feed-item {
-            background-color: #444;
-            padding: 2em;
-            border-radius: 10px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 1.5em;
-            margin-bottom: 1.5em;
-            transition: background 0.3s ease-in-out;
-        }
-
-
-
-        .feed-item img {
-            width: 250px;
-            height: auto;
-            border-radius: 10px;
-        }
-
-        .feed-content {
-            flex: 1;
-        }
-
-        .feed-content h3 {
-            font-size: 1.4em;
-            font-weight: bold;
-        }
-
-        .author {
-            font-size: 1em;
-            color: #bbb;
-        }
-
-        .buttons {
-            display: flex;
-            gap: 1em;
-            margin-top: 1em;
-        }
-
-        .reaction-btn {
-            background-color: #e10600;
-            color: white;
-            border: none;
-            padding: 0.5em 1em;
-            border-radius: 5px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            position: relative;
-        }
-
-        .reaction-btn:hover {
-            background-color: #b90500;
-        }
-
-        .reaction-options {
-            display: none;
-            position: absolute;
-            bottom: 40px;
-            left: 0;
-            background-color: #333;
-            padding: 0.5em;
-            border-radius: 5px;
-        }
-
-        .reaction-options span {
-            cursor: pointer;
-            font-size: 1.5em;
-            margin: 0 5px;
-        }
-
-        .reaction-btn:hover .reaction-options {
-            display: flex;
-        }
-
-        .comments-section {
-            margin-top: 1em;
-            padding: 1em;
-            background: #333;
-            border-radius: 5px;
-        }
-
-        .comment-input-container {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 1em;
-        }
-
-        .comments-section input {
-            flex: 1;
-            padding: 0.8em;
-            border-radius: 5px;
-            border: none;
-            background: #222;
-            color: #f1f1f1;
-        }
-
-        .comments-section button {
-            background-color: #e10600;
-            color: white;
-            border: none;
-            padding: 0.8em;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .comments-section button:hover {
-            background-color: #b90500;
-        }
-
-        .comments-list {
-            list-style: none;
-            padding: 0;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .comments-list li {
-            background: #444;
-            padding: 0.8em;
-            margin-top: 0.5em;
-            border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .comment-text {
-            flex: 1;
-        }
-
-        .logo {
-    position: absolute; 
-    left: 20px;
-    top:7%; 
-    transform: translateY(-50%); 
-    height: 80px;
-    width: auto; 
-        }
-
-    </style>
+    <title>PitLane</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="home.css">
 </head>
 <body>
-
-<header>
-    <img src="logo.png" alt="F1 Logo" class="logo"> 
-</header>
-
-<nav>
-    <a href="home.html">Home</a>
-    <a href="news.html">News</a>
-    <a href="create.html">Create</a>
-    <a href="feed.html">Feed</a>
-    <a href="about.html">About</a>
-</nav>
-
-<div id="home" class="main-container">
-    <div class="featured-news">
-        <img src="fast.jpg" alt="F1 Race">
-        <h2>Hamilton completes latest Ferrari run in Barcelona</h2>
-        <p>More track time planned for Hamilton after his successful Ferrari run.</p>
-    </div>
-    <div class="news-sidebar">
-        <div class="news-item">
-            <img src="doohan.jpg" alt="Doohan">
-            <p>Oakes insists Doohan will get 'fair crack' for Alpine amid Colapinto signing</p>
-        </div>
-        <div class="news-item">
-            <img src="live.jpg" alt="Event">
-            <p>F1 75 LIVE: All you need to know about the spectacular launch event at The O2</p>
-        </div>
-        <div class="news-item">
-            <img src="bottas.jpg" alt="Bottas">
-            <p>Bottas to mark Mercedes return in build-up to Australian Grand Prix</p>
-        </div>
-        <div class="news-item">
-            <img src="merc.jpg" alt="Bottas">
-            <p>In his final Mercedes season, Hamilton fights to reclaim the title from Verstappen</p>
-        </div>
-    </div>
-</div>
-
-
-<div id="profile" class="container profile-section">
-    <img src="kowi.png" alt="Profile Picture" class="profile-picture">
-    <h2>Alyssa Chloe Rebong</h2>
-    <p class="profile-info">F1 Fanatic | Ferrari Supporter | Race Analyst</p>
-    <div class="profile-stats">
-        <div class="stat"><strong id="followers">1,250</strong> Followers</div>
-        <div class="stat"><strong id="following">300</strong> Following</div>
-    </div>
-    <button class="edit-bio" onclick="editBio()">Edit Bio</button>
-</div>
-
-
-<div class="feed-section">
-    <h2>Latest Feed</h2>
-    <div class="feed-item">
-        <img src="verstap.jpg" alt="Race Moment">
-        <div class="feed-content">
-            <h3>Max Verstappen pulls off a daring move in the last corner to snatch P1!</h3>
-            <p class="author">by F1 News</p>
-            <div class="buttons">
-                <button class="reaction-btn">
-                    <span>❤️</span> React (<span>0</span>)
-                    <div class="reaction-options">
-                        <span onclick="reactToPost(this, '❤️')">❤️</span>
-                        <span onclick="reactToPost(this, '🔥')">🔥</span>
-                        <span onclick="reactToPost(this, '👍')">👍</span>
-                        <span onclick="reactToPost(this, '😮')">😮</span>
-                    </div>
-                </button>
-                <button class="comment-btn" onclick="toggleCommentSection(this)">
-                    💬 Comment
-                </button>
-            </div>
-            <div class="comments-section" style="display:none;">
-                <input type="text" placeholder="Add a comment...">
-                <button onclick="addComment(this)">Post</button>
-                <ul class="comments-list"></ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="feed-item">
-        <img src="FIA.png" alt="Breaking News">
-        <div class="feed-content">
-            <h3>Breaking: FIA introduces new regulations for the 2026 season</h3>
-            <p class="author">by F1 Insider</p>
-            <div class="buttons">
-                <button class="reaction-btn">
-                    <span>❤️</span> React (<span>0</span>)
-                    <div class="reaction-options">
-                        <span onclick="reactToPost(this, '❤️')">❤️</span>
-                        <span onclick="reactToPost(this, '🔥')">🔥</span>
-                        <span onclick="reactToPost(this, '👍')">👍</span>
-                        <span onclick="reactToPost(this, '😮')">😮</span>
-                    </div>
-                </button>
-                <button class="comment-btn" onclick="toggleCommentSection(this)">
-                    💬 Comment
-                </button>
-            </div>
-            <div class="comments-section" style="display:none;">
-                <input type="text" placeholder="Add a comment...">
-                <button onclick="addComment(this)">Post</button>
-                <ul class="comments-list"></ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-    <script>
-     function toggleCommentSection(button) {
-            let commentSection = button.parentElement.nextElementSibling;
-            commentSection.style.display = commentSection.style.display === "none" ? "block" : "none";
-        }
-
-        function addComment(button) {
-            let input = button.previousElementSibling;
-            let commentText = input.value.trim();
-            if (commentText !== "") {
-                let commentList = button.closest(".comments-section").querySelector(".comments-list");
-                let newComment = document.createElement("li");
-                newComment.textContent = commentText;
-                commentList.appendChild(newComment);
-                input.value = "";
-            }
-        }
-
-
-        document.addEventListener("DOMContentLoaded", function () {
-    let reactionButtons = document.querySelectorAll(".reaction-btn");
-
-    reactionButtons.forEach(button => {
-        let options = button.querySelector(".reaction-options");
-        let countSpan = button.querySelector("span:nth-of-type(2)"); 
-        let reactionText = button.querySelector("span:first-child"); 
-
-        let totalReactions = 0;
-        let lastSelectedReaction = null;
-
-      
-        countSpan.textContent = "(0)";
-
-        button.addEventListener("click", function (event) {
-            event.stopPropagation(); 
-            options.style.display = options.style.display === "flex" ? "none" : "flex";
-        });
-
-        options.addEventListener("click", function (event) {
-            let selectedReaction = event.target.textContent.trim();
-
-       
-            if (lastSelectedReaction === selectedReaction) return;
-
-            lastSelectedReaction = selectedReaction; 
-
-            totalReactions++; 
-            reactionText.textContent = selectedReaction; 
-            countSpan.textContent = `(${totalReactions})`; 
-
-            options.style.display = "none"; 
-            event.stopPropagation();
-        });
-    });
-
-
-    document.addEventListener("click", function () {
-        document.querySelectorAll(".reaction-options").forEach(menu => {
-            menu.style.display = "none";
-        });
-    });
-});
-
-function editBio() {
-    let newBio = prompt("Enter your new bio:");
-    if (newBio) {
-        document.querySelector(".profile-info").textContent = newBio;
-    }
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    let followers = document.getElementById("followers");
-    let following = document.getElementById("following");
+    <header>
+        <img src="IMAGES/logo.png" alt="F1 Logo" class="logo"> 
+    </header>
     
-    function animateCount(element, target) {
-        let count = 0;
-        let speed = Math.floor(2000 / target); 
-        let interval = setInterval(() => {
-            if (count >= target) {
-                clearInterval(interval);
-            } else {
-                count += 5; 
-                element.textContent = count;
-            }
-        }, speed);
-    }
-
-    animateCount(followers, 1250);
-    animateCount(following, 300);
-});
-
-
-    </script>
-
-<footer>
-    &copy; 2025 F1 Social. All Rights Reserved.
-</footer>
-
+    <nav>
+        <a href="home.html">Home</a>
+        <a href="news.html">News</a>
+        <a href="create.html">Create</a>
+        <a href="feed.html">Feed</a>
+        <a href="about.html">About</a>
+    </nav>
+    
+    <div id="home" class="main-container">
+        <div class="featured-news">
+            <img src="IMAGES/fast.jpg" alt="F1 Race">
+            <h2>Hamilton completes latest Ferrari run in Barcelona</h2>
+            <p>More track time planned for Hamilton after his successful Ferrari run.</p>
+        </div>
+        <div class="news-sidebar">
+            <div class="news-item">
+                <img src="IMAGES/doohan.jpg" alt="Doohan">
+                <p>Oakes insists Doohan will get 'fair crack' for Alpine amid Colapinto signing</p>
+            </div>
+            <div class="news-item">
+                <img src="IMAGES/live.jpg" alt="Event">
+                <p>F1 75 LIVE: All you need to know about the spectacular launch event at The O2</p>
+            </div>
+            <div class="news-item">
+                <img src="IMAGES/bottas.jpg" alt="Bottas">
+                <p>Bottas to mark Mercedes return in build-up to Australian Grand Prix</p>
+            </div>
+            <div class="news-item">
+                <img src="IMAGES/merc.jpg" alt="Bottas">
+                <p>In his final Mercedes season, Hamilton fights to reclaim the title from Verstappen</p>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div id="profile" class="container profile-section">
+        <img src="IMAGES/kowi.png" alt="Profile Picture" class="profile-picture">
+        <h2>Alyssa Chloe Rebong</h2>
+        <p class="profile-info">F1 Fanatic | Ferrari Supporter | Race Analyst</p>
+        <div class="profile-stats">
+            <div class="stat"><strong id="followers">1,250</strong> Followers</div>
+            <div class="stat"><strong id="following">300</strong> Following</div>
+        </div>
+        <button class="edit-bio" onclick="editBio()">Edit Bio</button>
+    </div>
+    
+    
+    <div class="feed-section">
+        <h2>Latest Feed</h2>
+        <div class="feed-item">
+            <img src="IMAGES/verstap.jpg" alt="Race Moment">
+            <div class="feed-content">
+                <h3>Max Verstappen pulls off a daring move in the last corner to snatch P1!</h3>
+                <p class="author">by F1 News</p>
+                <div class="buttons">
+                    <button class="reaction-btn">
+                        <span>❤️</span> React (<span>0</span>)
+                        <div class="reaction-options">
+                            <span onclick="reactToPost(this, '❤️')">❤️</span>
+                            <span onclick="reactToPost(this, '🔥')">🔥</span>
+                            <span onclick="reactToPost(this, '👍')">👍</span>
+                            <span onclick="reactToPost(this, '😮')">😮</span>
+                        </div>
+                    </button>
+                    <button class="comment-btn" onclick="toggleCommentSection(this)">
+                        💬 Comment
+                    </button>
+                </div>
+                <div class="comments-section" style="display:none;">
+                    <input type="text" placeholder="Add a comment...">
+                    <button onclick="addComment(this)">Post</button>
+                    <ul class="comments-list"></ul>
+                </div>
+            </div>
+        </div>
+    
+        <div class="feed-item">
+            <img src="IMAGES/FIA.png" alt="Breaking News">
+            <div class="feed-content">
+                <h3>Breaking: FIA introduces new regulations for the 2026 season</h3>
+                <p class="author">by F1 Insider</p>
+                <div class="buttons">
+                    <button class="reaction-btn">
+                        <span>❤️</span> React (<span>0</span>)
+                        <div class="reaction-options">
+                            <span>❤️</span>
+                            <span>🔥</span>
+                            <span>👍</span>
+                            <span>😮</span>
+                        </div>
+                    </button>
+                    <button class="comment-btn" onclick="toggleCommentSection(this)">
+                        💬 Comment
+                    </button>
+                </div>
+                <div class="comments-section" style="display:none;">
+                    <input type="text" placeholder="Add a comment...">
+                    <button onclick="addComment(this)">Post</button>
+                    <ul class="comments-list"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="home.js"></script>
+    
+    <footer>
+        &copy; 2025 F1 Social. All Rights Reserved.
+    </footer>
 </body>
 </html>
