@@ -4,216 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>News - F1 Social</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #1d1d1d;
-            color: #f1f1f1;
-        }
-
-        header {
-            background-color: #e10600;
-            color: white;
-            text-align: center;
-            padding: 1.5em 0;
-            font-size: 2em;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        }
-
-        nav {
-            background-color: #202020;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 0.7em 0;
-        }
-
-        nav a {
-            color: #f1f1f1;
-            text-decoration: none;
-            font-size: 1.2em;
-            font-weight: bold;
-            padding: 0.5em 1em;
-            border-radius: 5px;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        nav a:hover {
-            background-color: #e10600;
-            transform: scale(1.1);
-        }
-
-        .marquee {
-            background-color: white;
-            padding: 0.8em;
-            color: #e10600;
-            font-size: 1.2em;
-            font-weight: bold;
-            overflow: hidden;
-            white-space: nowrap;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        }
-
-        .marquee span {
-            display: inline-block;
-            padding-left: 100%;
-            animation: marquee 10s linear infinite;
-        }
-
-        @keyframes marquee {
-            from { transform: translateX(0); }
-            to { transform: translateX(-100%); }
-        }
-
-        .news-container {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 1.5em;
-            max-width: 1100px;
-            margin: 2em auto;
-            padding: 2em;
-            background-color: #2a2a2a;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .news-main {
-            flex: 3;
-        }
-
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .news-card {
-            background-color: #333;
-            padding: 1em;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
-        }
-
-        .news-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(255, 0, 0, 0.5);
-        }
-
-        .news-card img {
-            width: 100%;
-            border-radius: 10px;
-            font-weight: bold;
-            color: #e10600;
-        }
-        
-
-        .sidebar {
-            flex: 1;
-            background-color: #333;
-            padding: 1em;
-            border-radius: 10px;
-            margin-left: 20px;
-        }
-
-        .sidebar h3 {
-            color: #e10600;
-        }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .sidebar ul li {
-            padding: 0.5em 0;
-            border-bottom: 1px solid #555;
-        }
-        .main-container {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 1.5em;
-            max-width: 1100px;
-            margin: 2em auto;
-            padding: 2em;
-            background-color: #2a2a2a;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .featured-news, .profile-section, .feed-section {
-            background-color: #333;
-            padding: 1.5em;
-            border-radius: 10px;
-            border: 2px solid #444;
-        }
-
-        .featured-news img, .feed-item img {
-            width: 100%;
-            border-radius: 10px;
-        }
-
-        .news-sidebar, .feed-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5em;
-        }
-
-        .news-item, .feed-item {
-            background-color: #444;
-            padding: 1em;
-            border-radius: 10px;
-            display: flex;
-            gap: 1em;
-            align-items: center;
-        }
-
-        .news-item img, .feed-item img {
-            width: 150px;
-            height: 120px;
-            border-radius: 5px;
-        }
-
-        .news-item:hover {
-            background-color: #e10600;
-            cursor: pointer;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 2em auto;
-            padding: 2em;
-            background-color: #2a2a2a;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-
-        footer {
-            background-color: #202020;
-            color: white;
-            text-align: center;
-            padding: 1em 0;
-            margin-top: 2em;
-        }
-
-        .logo {
-    position: absolute; 
-    left: 20px;
-    top: 7%; 
-    transform: translateY(-50%); 
-    height: 80px;
-    width: auto; 
-}
-
-    </style>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="news.css">
+    
 </head>
 <body>
 <header>
-    <img src="logo.png" alt="F1 Logo" class="logo"> 
+    <img src="IMAGES/logo.png" alt="F1 Logo" class="logo"> 
 </header>
 
 <div class="marquee">
@@ -233,12 +30,12 @@
         <h1 style="color: #e10600; text-align: center;">Latest F1 News</h1>
         <div class="news-grid">
             <div class="news-card">
-                <img src="feri.png" alt="Hamilton to Ferrari">
+                <img src="IMAGES/feri.png" alt="Hamilton to Ferrari">
                 <h3>Lewis Hamilton Joins Ferrari for 2025</h3>
                 <p>In a stunning move, Lewis Hamilton has signed with Scuderia Ferrari for the 2025 season</p>
             </div>
             <div class="news-card">
-                <img src="redbukk.png" alt="Red Bull RB20">
+                <img src="IMAGES/redbukk.png" alt="Red Bull RB20">
                 <h3>Red Bull Unveils RB20</h3>
                 <p>Red Bull Racing has revealed their highly anticipated RB20, promising major advancements</p>
             </div>
@@ -264,25 +61,25 @@
 
 <div id="home" class="main-container">
     <div class="featured-news">
-        <img src="fast.jpg" alt="F1 Race">
+        <img src="IMAGES/fast.jpg" alt="F1 Race">
         <h2>Hamilton completes latest Ferrari run in Barcelona</h2>
         <p>More track time planned for Hamilton after his successful Ferrari run.</p>
     </div>
     <div class="news-sidebar">
         <div class="news-item">
-            <img src="doohan.jpg" alt="Doohan">
+            <img src="IMAGES/doohan.jpg" alt="Doohan">
             <p>Oakes insists Doohan will get 'fair crack' for Alpine amid Colapinto signing</p>
         </div>
         <div class="news-item">
-            <img src="live.jpg" alt="Event">
+            <img src="IMAGES/live.jpg" alt="Event">
             <p>F1 75 LIVE: All you need to know about the spectacular launch event at The O2</p>
         </div>
         <div class="news-item">
-            <img src="bottas.jpg" alt="Bottas">
+            <img src="IMAGES/bottas.jpg" alt="Bottas">
             <p>Bottas to mark Mercedes return in build-up to Australian Grand Prix</p>
         </div>
         <div class="news-item">
-            <img src="merc.jpg" alt="Bottas">
+            <img src="IMAGES/merc.jpg" alt="Bottas">
             <p>In his final Mercedes season, Hamilton fights to reclaim the title from Verstappen</p>
         </div>
     </div>

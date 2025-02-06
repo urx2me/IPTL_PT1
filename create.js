@@ -1,122 +1,365 @@
+
+
 const storiesContainer = document.getElementById('storiesContainer');
-    const storyViewer = document.getElementById('storyViewer');
-    const storyViewerContent = document.getElementById('storyViewerContent');
-    const storyViewerTitle = document.getElementById('storyViewerTitle');
-    const uploadContainer = document.getElementById('uploadContainer');
-    const reactionContainer = document.getElementById('reactionContainer');
-    let storyQueue = [];
-    let currentStoryIndex = 0;
-    let autoTimer;
-    const reactionCounts = {};
+const storyViewer = document.getElementById('storyViewer');
+const storyViewerContent = document.getElementById('storyViewerContent');
+const storyViewerTitle = document.getElementById('storyViewerTitle');
+const uploadContainer = document.getElementById('uploadContainer');
+const reactionContainer = document.getElementById('reactionContainer');
+let storyQueue = [];
+let currentStoryIndex = 0;
+let autoTimer;
+const reactionCounts = {};
+const mediaInput = document.getElementById('mediaInput');
+const mediaPreviewContainer = document.getElementById('mediaPreviewContainer');
+const mediaPreview = document.getElementById('mediaPreview');
 
-    function toggleUploadOptions() {
-      if (uploadContainer.style.display === "none" || uploadContainer.style.display === "") {
-        uploadContainer.style.display = "block";
-      } else {
-        uploadContainer.style.display = "none";
+const rotateButtons = document.getElementById("rotateButtons");
+const rotateLeftBtn = document.getElementById("rotateLeft");
+const rotateRightBtn = document.getElementById("rotateRight");
+
+
+let cropper = null;
+
+mediaInput.addEventListener('change', function(event) {
+const file = event.target.files[0];
+
+if (!file) return;
+
+mediaPreview.innerHTML = ''; // Clear previous preview
+mediaPreviewContainer.style.display = 'block';
+
+const fileURL = URL.createObjectURL(file);
+
+if (file.type.startsWith('image/')) {
+const img = document.createElement('img');
+img.id = "cropImage";
+img.src = fileURL;
+mediaPreview.appendChild(img);
+
+// Wait for image to load before applying cropper
+img.onload = function () {
+  if (cropper) cropper.destroy(); // Reset cropper if already applied
+  cropper = new Cropper(img, {
+    aspectRatio: 1 / 1,
+    viewMode: 1
+  });
+};
+rotateButtons.style.display = "flex"; // Show rotate buttons
+} else if (file.type.startsWith('video/')) {
+const video = document.createElement('video');
+video.src = fileURL;
+video.controls = true;
+mediaPreview.appendChild(video);
+
+rotateButtons.style.display = "none"; // Hide rotate buttons
+}
+});
+
+
+function toggleUploadOptions() {
+  if (uploadContainer.style.display === "none" || uploadContainer.style.display === "") {
+    uploadContainer.style.display = "block";
+  } else {
+    uploadContainer.style.display = "none";
+  }
+}
+
+function addStories() {
+const storyTitleInput = document.getElementById('storyTitle');
+const musicInput = document.getElementById('musicInput');
+const storyTitle = storyTitleInput.value.trim();
+const musicFile = musicInput.files[0];
+
+let mediaFile = trimmedVideoFile || mediaInput.files[0];
+
+// If there's a trimmed video, use it; otherwise, use the original video
+if (trimmedVideoFile) {
+mediaFile = trimmedVideoFile;
+} 
+
+else if (cropper) {
+cropper.getCroppedCanvas().toBlob(blob => {
+  mediaFile = new File([blob], "cropped-image.jpg", { type: "image/jpeg" });
+  processStory(mediaFile, storyTitle, musicFile);
+});
+} else {
+mediaFile = mediaInput.files[0];
+processStory(mediaFile, storyTitle, musicFile);
+}
+}
+
+function processStory(mediaFile, storyTitle, musicFile) {
+if (!mediaFile) {
+alert("Please select an image or video.");
+return;
+}
+
+const storyElement = document.createElement('div');
+storyElement.classList.add('story');
+const url = URL.createObjectURL(mediaFile);
+
+if (mediaFile.type.startsWith('image/')) {
+const img = document.createElement('img');
+img.src = url;
+storyElement.appendChild(img);
+} else if (mediaFile.type.startsWith('video/')) {
+const video = document.createElement('video');
+video.src = url;
+video.controls = false;
+storyElement.appendChild(video);
+}
+
+// ✅ RE-ADDING STORY CLICK FUNCTIONALITY TO OPEN STORIES ✅
+storyElement.addEventListener('click', () => {
+storyQueue = Array.from(storiesContainer.children)
+  .filter(child => child !== storiesContainer.children[0]) // Ignore the "Add Story" button
+  .map(child => ({
+    src: child.querySelector('img, video').src,
+    type: child.querySelector('img') ? 'image' : 'video',
+    title: storyTitle || "Untitled Story",
+    music: musicFile ? URL.createObjectURL(musicFile) : null
+  }));
+
+currentStoryIndex = storyQueue.findIndex(item => item.src === url);
+showStory(currentStoryIndex);
+});
+
+storiesContainer.appendChild(storyElement);
+
+// Reset form inputs and preview
+document.getElementById('storyTitle').value = '';
+mediaInput.value = '';
+musicInput.value = '';
+mediaPreview.innerHTML = '';
+mediaPreviewContainer.style.display = 'none';
+rotateButtons.style.display = "none"; // Hide rotate buttons
+
+if (cropper) {
+cropper.destroy();
+cropper = null;
+}
+}
+
+
+
+function handleReaction(reaction) {
+  reactionCounts[reaction] = (reactionCounts[reaction] || 0) + 1; 
+  alert(`You reacted with ${reaction}! Total: ${reactionCounts[reaction]}`);
+}
+
+function showStory(index) {
+if (index < 0 || index >= storyQueue.length) {
+closeStory();
+return;
+}
+
+const story = storyQueue[index];
+storyViewerContent.innerHTML = '';
+storyViewerTitle.textContent = story.title;
+
+if (story.type === 'image') {
+const img = document.createElement('img');
+img.src = story.src;
+storyViewerContent.appendChild(img);
+} else if (story.type === 'video') {
+const video = document.createElement('video');
+video.src = story.src;
+video.autoplay = true;
+video.controls = true;
+storyViewerContent.appendChild(video);
+}
+
+// Handle audio playback
+if (story.music) {
+const audio = document.createElement('audio');
+audio.src = story.music;
+audio.autoplay = true;
+audio.loop = true;
+audio.id = 'storyAudio';
+storyViewerContent.appendChild(audio);
+}
+
+storyViewer.classList.add('active');
+reactionContainer.style.display = 'flex';
+
+resetAutoTimer();
+}
+
+function closeStory() {
+storyViewer.classList.remove('active');
+clearTimeout(autoTimer);
+storyViewerContent.innerHTML = ''; 
+reactionContainer.style.display = 'none';
+
+// Stop and remove audio if present
+const audio = document.getElementById('storyAudio');
+if (audio) {
+audio.pause();
+audio.src = '';
+}
+}
+
+
+function resetAutoTimer() {
+  clearTimeout(autoTimer);
+  autoTimer = setTimeout(() => {
+    navigateStory(1);
+  }, 5000);
+}
+
+function navigateStory(direction) {
+  currentStoryIndex += direction;
+  showStory(currentStoryIndex);
+}
+
+
+let rotationAngle = 0;
+
+rotateLeftBtn.addEventListener("click", function () {
+rotateImage(-90); // Rotate counterclockwise
+});
+
+rotateRightBtn.addEventListener("click", function () {
+rotateImage(90); // Rotate clockwise
+});
+
+function rotateImage(deg) {
+if (cropper) {
+cropper.rotate(deg); // Rotate using CropperJS
+}
+}
+
+
+const videoTrimControls = document.getElementById("videoTrimControls");
+const startTrim = document.getElementById("startTrim");
+const endTrim = document.getElementById("endTrim");
+const startTimeLabel = document.getElementById("startTimeLabel");
+const endTimeLabel = document.getElementById("endTimeLabel");
+
+let videoElement;
+let trimmedVideoFile = null; 
+
+mediaInput.addEventListener('change', function (event) {
+const file = event.target.files[0];
+
+if (!file) return;
+
+mediaPreview.innerHTML = ''; // Clear previous preview
+mediaPreviewContainer.style.display = 'block';
+
+const fileURL = URL.createObjectURL(file);
+
+if (file.type.startsWith('image/')) {
+// Handle image cropping (existing logic)
+const img = document.createElement('img');
+img.id = "cropImage";
+img.src = fileURL;
+mediaPreview.appendChild(img);
+
+img.onload = function () {
+  if (cropper) cropper.destroy();
+  cropper = new Cropper(img, { aspectRatio: 1 / 1, viewMode: 1 });
+};
+rotateButtons.style.display = "flex";
+} else if (file.type.startsWith('video/')) {
+// Handle video preview and trimming logic
+videoElement = document.createElement('video');
+videoElement.src = fileURL;
+videoElement.controls = true;
+mediaPreview.appendChild(videoElement);
+
+// Show trim controls for the video
+videoTrimControls.style.display = "block";
+
+videoElement.onloadedmetadata = function () {
+  endTrim.max = videoElement.duration;
+  endTrim.value = videoElement.duration;
+  startTrim.max = videoElement.duration;
+  startTrim.value = 0;
+  updateTrimLabels();
+};
+
+}
+});
+
+function updateTrimLabels() {
+startTimeLabel.textContent = parseFloat(startTrim.value).toFixed(1);
+endTimeLabel.textContent = parseFloat(endTrim.value).toFixed(1);
+}
+
+async function applyTrim() {
+  if (!videoElement) {
+      alert("No video selected.");
+      return;
+  }
+
+  const start = parseFloat(startTrim.value);
+  const end = parseFloat(endTrim.value);
+  if (end <= start) {
+      alert("End time must be greater than start time.");
+      return;
+  }
+
+  try {
+      const { createFFmpeg, fetchFile } = FFmpeg;
+      const ffmpeg = createFFmpeg({ log: true });
+
+      if (!ffmpeg.isLoaded()) {
+          await ffmpeg.load();
       }
-    }
 
-    function addStories() {
-      const mediaInput = document.getElementById('mediaInput');
-      const storyTitleInput = document.getElementById('storyTitle');
-      const musicInput = document.getElementById('musicInput');
-      const files = Array.from(mediaInput.files);
-      const storyTitle = storyTitleInput.value.trim();
-      const musicFile = musicInput.files[0];
-
-      if (files.length === 0) {
-        alert('Please select at least one image or video.');
-        return;
-      }
-
-      files.forEach((file) => {
-        const storyElement = document.createElement('div');
-        storyElement.classList.add('story');
-        const url = URL.createObjectURL(file);
-        const title = storyTitle || "Untitled Story";
-
-        if (file.type.startsWith('image/')) {
-          const img = document.createElement('img');
-          img.src = url;
-          storyElement.appendChild(img);
-        } else if (file.type.startsWith('video/')) {
-          const video = document.createElement('video');
-          video.src = url;
-          video.controls = false;
-          storyElement.appendChild(video);
-        } else {
-          alert('Unsupported file type.');
+      const file = mediaInput.files[0];
+      if (!file) {
+          alert("Error: No valid video file.");
           return;
-        }
-
-        storyElement.addEventListener('click', () => {
-          storyQueue = Array.from(storiesContainer.children)
-            .filter(child => child !== storiesContainer.children[0])
-            .map(child => ({
-              src: child.querySelector('img, video').src,
-              type: child.querySelector('img') ? 'image' : 'video',
-              title: title,
-              music: musicFile ? URL.createObjectURL(musicFile) : null
-            }));
-
-          currentStoryIndex = storyQueue.findIndex(item => item.src === url);
-          showStory(currentStoryIndex);
-        });
-
-        storiesContainer.appendChild(storyElement);
-        storyTitleInput.value = '';
-        mediaInput.value = '';
-        musicInput.value = '';
-      });
-    }
-
-    function handleReaction(reaction) {
-      reactionCounts[reaction] = (reactionCounts[reaction] || 0) + 1; 
-      alert(`You reacted with ${reaction}! Total: ${reactionCounts[reaction]}`);
-    }
-
-    function showStory(index) {
-      if (index < 0 || index >= storyQueue.length) {
-        closeStory();
-        return;
       }
 
-      const story = storyQueue[index];
-      storyViewerContent.innerHTML = '';
-      storyViewerTitle.textContent = story.title;
+      const fileName = "input.mp4";
+      const outputFileName = "trimmed.mp4";
 
-      if (story.type === 'image') {
-        const img = document.createElement('img');
-        img.src = story.src;
-        storyViewerContent.appendChild(img);
-      } else if (story.type === 'video') {
-        const video = document.createElement('video');
-        video.src = story.src;
-        video.autoplay = true;
-        video.controls = true;
-        storyViewerContent.appendChild(video);
-      }
+      ffmpeg.FS("writeFile", fileName, await fetchFile(file));
 
-      storyViewer.classList.add('active');
-      reactionContainer.style.display = 'flex'; 
-    }
+      await ffmpeg.run(
+          "-i", fileName,
+          "-ss", start.toString(),
+          "-to", end.toString(),
+          "-c", "copy",
+          outputFileName
+      );
 
-    function closeStory() {
-      storyViewer.classList.remove('active');
-      clearTimeout(autoTimer);
-      storyViewerContent.innerHTML = ''; 
-      reactionContainer.style.display = 'none'; 
-    }
+      const trimmedData = ffmpeg.FS("readFile", outputFileName);
+      const trimmedBlob = new Blob([trimmedData.buffer], { type: "video/mp4" });
+      trimmedVideoFile = new File([trimmedBlob], "trimmed-video.mp4", { type: "video/mp4" });
 
-    function resetAutoTimer() {
-      clearTimeout(autoTimer);
-      autoTimer = setTimeout(() => {
-        navigateStory(1);
-      }, 5000);
-    }
+      const videoURL = URL.createObjectURL(trimmedVideoFile);
+      mediaPreview.innerHTML = ''; 
+      const trimmedVideoElement = document.createElement("video");
+      trimmedVideoElement.src = videoURL;
+      trimmedVideoElement.controls = true;
+      mediaPreview.appendChild(trimmedVideoElement);
 
-    function navigateStory(direction) {
-      currentStoryIndex += direction;
-      showStory(currentStoryIndex);
-    }
+      alert("Trim applied successfully!");
+  } catch (error) {
+      console.error("FFmpeg.js Error:", error);
+      alert("Failed to trim the video. Please try again.");
+  }
+}
+
+
+startTrim.addEventListener("input", function () {
+  if (parseFloat(startTrim.value) >= parseFloat(endTrim.value)) {
+      startTrim.value = parseFloat(endTrim.value) - 0.1;
+  }
+  updateTrimLabels();
+});
+
+endTrim.addEventListener("input", function () {
+  if (parseFloat(endTrim.value) <= parseFloat(startTrim.value)) {
+      endTrim.value = parseFloat(startTrim.value) + 0.1;
+  }
+  updateTrimLabels();
+});
+
+
+
